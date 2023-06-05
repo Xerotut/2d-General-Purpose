@@ -8,34 +8,25 @@ namespace GeneralPurpose2d
     [RequireComponent(typeof(Rigidbody2D))]
     public class StateMachineH: MonoBehaviour
     {
-        [SerializeField] private Character _character;
-        public Character Character { get => _character; }
-
-        [SerializeField] private Rigidbody2D _charRB;
-        public Rigidbody2D CharRB { get => _charRB; }
-
-        [SerializeField] private CharacterStats _stats;
-        public CharacterStats Stats { get => _stats; }
-
-
-        
-
+       
+        public Character Character { get; private set; }
+        public Rigidbody2D CharRB { get; private set; }
+        public CharacterStats Stats { get; private set; }
 
         private StateFactoryH _factory;
         private BaseStateH _currentState;
 
-
-
-
-
-
         private void Awake()
         {
+            Character = GetComponent<Character>();
+            Stats = Character.Stats;
+
+            CharRB = GetComponent<Rigidbody2D>();
+
             _factory = new StateFactoryH(this);
             _currentState = _factory.GetState(States.grounded);
             _currentState.EnterState();
         }
-
 
         private void Update()
         {
@@ -46,7 +37,6 @@ namespace GeneralPurpose2d
         {
             _currentState.UpdateStatePhysics();
         }
-
 
         public void ChangeState(BaseStateH stateToChange, BaseStateH masterState, BaseStateH newState)
         {

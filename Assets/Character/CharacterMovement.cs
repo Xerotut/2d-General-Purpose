@@ -8,7 +8,7 @@ namespace GeneralPurpose2d
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterMovement : MonoBehaviour
     {
-        [SerializeField] private Character _character;
+        public Character Character { get; private set; }
 
         private Rigidbody2D _charRB;
 
@@ -17,9 +17,11 @@ namespace GeneralPurpose2d
 
         private void Awake()
         {
+            Character = GetComponent<Character>();
+
             _charRB = GetComponent<Rigidbody2D>();
             InputReader.OnMove += HandleMoveInput;
-            _character.MoveEvent += Move;
+            Character.MoveEvent += Move;
         }
 
         private void HandleMoveInput(Vector2 moveInput)
