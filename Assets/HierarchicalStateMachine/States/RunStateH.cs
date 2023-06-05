@@ -1,12 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace GeneralPurpose2d
 {
     public class RunStateH : BaseStateH
     {
-        public RunStateH(StateMachineH stateMachine, StateFactoryH stateFactory) : base(stateMachine, stateFactory) { }
+
+        private event Action<float> HandleMoveInput;
+
+        public RunStateH(StateMachineH stateMachine, StateFactoryH stateFactory) : base(stateMachine, stateFactory) 
+        {
+            HandleMoveInput += speed => _stateMachine.Character.MoveEvent?.Invoke(speed);
+        }
 
         public override void EnterState()
         {
@@ -27,10 +32,10 @@ namespace GeneralPurpose2d
 
         public override void UpdateStatePhysics()
         {
-            _stateMachine.MovementScript.Move(_charRB, _stats.RunSpeed, _stateMachine.DirectionInput);
-            if (_charRB.velocity == Vector2.zero)
+            HandleMoveInput?.Invoke(_stateMachine.Stats.RunSpeed);
+            if (_stateMachine.CharRB.velocity == Vector2.zero)
             {
-                _stateMachine.ChangeState(this, _stateFactory.GetState(States.idle));
+                _stateMachine.ChangeState(this, _masterState, _stateFactory.GetState(States.idle));
                 return;
             }
             base.UpdateStatePhysics();

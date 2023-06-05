@@ -4,32 +4,38 @@ using UnityEngine;
 
 namespace GeneralPurpose2d
 {
-    public class StateMachineH : MonoBehaviour
+    [RequireComponent(typeof(Character))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class StateMachineH: MonoBehaviour
     {
+        [SerializeField] private Character _character;
+        public Character Character { get => _character; }
 
-        [SerializeField] CharacterMovement _movementScript;
-        public CharacterMovement MovementScript { get => _movementScript; }
+        [SerializeField] private Rigidbody2D _charRB;
+        public Rigidbody2D CharRB { get => _charRB; }
 
-        private BaseStateH _currentState;
-
-        private StateFactoryH _factory;
-
-        public Vector2 DirectionInput { get; private set; }
-
-        [SerializeField] CharacterStats _stats;
+        [SerializeField] private CharacterStats _stats;
         public CharacterStats Stats { get => _stats; }
 
-        public Rigidbody2D CharRB { get; private set; }
+
+        
+
+
+        private StateFactoryH _factory;
+        private BaseStateH _currentState;
+
+
+
+
+
 
         private void Awake()
         {
-            CharRB = GetComponent<Rigidbody2D>();
             _factory = new StateFactoryH(this);
             _currentState = _factory.GetState(States.grounded);
             _currentState.EnterState();
-
-            InputReader.OnMove += vector => DirectionInput = vector;
         }
+
 
         private void Update()
         {
@@ -42,21 +48,21 @@ namespace GeneralPurpose2d
         }
 
 
-        public void ChangeState(BaseStateH stateToChange, BaseStateH newState)
+        public void ChangeState(BaseStateH stateToChange, BaseStateH masterState, BaseStateH newState)
         {
-            if (stateToChange.MasterState == null) 
+            
+            stateToChange.ExitState();
+
+            if (masterState==null) 
             {
-                _currentState.ExitState();
                 _currentState = newState;
-                _currentState.EnterState();
             }
             else
             {
-               // if (activeState.MasterState != null) Debug.Log("halo");
-              //  Debug.Log(stateToChange.MasterState);
-                stateToChange.MasterState.SetSubState(newState);
-                
+                masterState.SetSubState(newState);
             }
+            newState.EnterState();
+
         }
 
     }

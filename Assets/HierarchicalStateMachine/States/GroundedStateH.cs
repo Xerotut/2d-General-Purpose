@@ -10,12 +10,12 @@ namespace GeneralPurpose2d
 
         public override void EnterState()
         {
-            if (_stateMachine.DirectionInput == Vector2.zero)
+            if (_moveInput == Vector2.zero)
             {
                 SetSubState(_stateFactory.GetState(States.idle));
                 return;
             }
-            if (_stateMachine.DirectionInput != Vector2.zero)
+            if (_moveInput != Vector2.zero)
             {
                 SetSubState(_stateFactory.GetState(States.run));
                 return;

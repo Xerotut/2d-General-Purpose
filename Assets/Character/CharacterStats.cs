@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace GeneralPurpose2d
 {
-    public class CharacterStats : MonoBehaviour
+    [CreateAssetMenu(fileName ="Stats", menuName ="General/Stats")]
+    public class CharacterStats : ScriptableObject
     {
         [SerializeField] float _runSpeed;
         public float RunSpeed { get => _runSpeed; }

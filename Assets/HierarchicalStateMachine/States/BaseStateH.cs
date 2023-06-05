@@ -6,23 +6,24 @@ namespace GeneralPurpose2d
 {
     public abstract class BaseStateH
     {
-        public BaseStateH MasterState { get; protected set; }   
-        protected BaseStateH _subState;
-        protected StateMachineH _stateMachine;
-        protected StateFactoryH _stateFactory;
-
-        protected Rigidbody2D _charRB;
-        protected CharacterStats _stats;
-        
-
         public BaseStateH(StateMachineH stateMachine, StateFactoryH stateFactory)
         {
             _stateMachine = stateMachine;
             _stateFactory = stateFactory;
 
-            _charRB = _stateMachine.CharRB;
-            _stats = _stateMachine.Stats;
+            InputReader.OnMove += input => _moveInput = input;
         }
+
+        protected BaseStateH _masterState;
+        protected BaseStateH _subState;
+        protected StateMachineH _stateMachine;
+        protected StateFactoryH _stateFactory;
+
+        protected Vector2 _moveInput;
+        protected CharacterStats _stats;
+        
+
+      
 
         public abstract void EnterState();
 
@@ -39,7 +40,7 @@ namespace GeneralPurpose2d
         public virtual void ExitState()
         {
             _subState?.ExitState();
-            MasterState = null;
+            _masterState = null;
         }
 
       
@@ -47,14 +48,12 @@ namespace GeneralPurpose2d
         
         protected void SetMasterState(BaseStateH state)
         {
-            MasterState = state;
+            _masterState = state;
         }
         public void SetSubState(BaseStateH state)
         {
-            _subState?.ExitState();
             _subState = state;
             _subState.SetMasterState(this);
-            _subState.EnterState();
         }
     }
 }
