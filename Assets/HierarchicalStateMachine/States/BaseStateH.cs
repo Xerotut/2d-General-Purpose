@@ -20,12 +20,15 @@ namespace GeneralPurpose2d
         protected StateFactoryH _stateFactory;
 
         protected Vector2 _moveInput;
-        protected CharacterStats _stats;
+        protected Stats _stats;
         
 
       
 
-        public abstract void EnterState();
+        public virtual void EnterState()
+        {
+            _subState = null;
+        }
 
         public virtual void UpdateState()
         {

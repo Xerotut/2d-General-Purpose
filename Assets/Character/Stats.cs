@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GeneralPurpose2d
 {
     [CreateAssetMenu(fileName ="Stats", menuName ="General/Stats")]
-    public class CharacterStats : ScriptableObject
+    public class Stats : ScriptableObject
     {
         [SerializeField] float _runSpeed;
         public float RunSpeed { get => _runSpeed; }

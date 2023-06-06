@@ -8,10 +8,10 @@ namespace GeneralPurpose2d
     [RequireComponent(typeof(Rigidbody2D))]
     public class StateMachineH: MonoBehaviour
     {
-       
+        [SerializeField] States _defaultState;
         public Character Character { get; private set; }
         public Rigidbody2D CharRB { get; private set; }
-        public CharacterStats Stats { get; private set; }
+        public Stats Stats { get; private set; }
 
         private StateFactoryH _factory;
         private BaseStateH _currentState;
@@ -24,7 +24,7 @@ namespace GeneralPurpose2d
             CharRB = GetComponent<Rigidbody2D>();
 
             _factory = new StateFactoryH(this);
-            _currentState = _factory.GetState(States.grounded);
+            _currentState = _factory.GetState(_defaultState);
             _currentState.EnterState();
         }
 

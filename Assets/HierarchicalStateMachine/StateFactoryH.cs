@@ -32,7 +32,7 @@ namespace GeneralPurpose2d
             _states[States.idle] = new IdleStateH(_stateMachine, this);
             //_states[States.grounded] = new GroundedState(_stateMachine, this);
             //_states[States.idle] = new IdleState(_stateMachine, this);
-            //_states[States.walk] = new WalkState(_stateMachine, this);
+            _states[States.walk] = new WalkStateH(_stateMachine, this);
             //_states[States.move] = new MoveState(_stateMachine, this);
             //_states[States.stunned] = new StunnedState(_stateMachine, this);
         }

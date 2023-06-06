@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf8469fc966b1034c9f13d37ff27eedf, type: 3}
+  m_Script: {fileID: 11500000, guid: a789b97e20bb85b48a783fe6e1775440, type: 3}
   m_Name: CharacterStats
   m_EditorClassIdentifier: 
-  _runSpeed: 0
-  _walkSpeed: 0
+  _runSpeed: 10
+  _walkSpeed: 5
