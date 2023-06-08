@@ -46,6 +46,15 @@ namespace GeneralPurpose2d
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fly"",
+                    ""type"": ""Button"",
+                    ""id"": ""eeedac74-d76b-488d-95cf-5fe90f8c9e7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ namespace GeneralPurpose2d
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c43c2ee9-5c48-4aac-a3d3-85d7dcd6bd04"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -169,6 +189,7 @@ namespace GeneralPurpose2d
             m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
             m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
             m_Character_Walk = m_Character.FindAction("Walk", throwIfNotFound: true);
+            m_Character_Fly = m_Character.FindAction("Fly", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -233,12 +254,14 @@ namespace GeneralPurpose2d
         private ICharacterActions m_CharacterActionsCallbackInterface;
         private readonly InputAction m_Character_Move;
         private readonly InputAction m_Character_Walk;
+        private readonly InputAction m_Character_Fly;
         public struct CharacterActions
         {
             private @PlayerInput m_Wrapper;
             public CharacterActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Character_Move;
             public InputAction @Walk => m_Wrapper.m_Character_Walk;
+            public InputAction @Fly => m_Wrapper.m_Character_Fly;
             public InputActionMap Get() { return m_Wrapper.m_Character; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -254,6 +277,9 @@ namespace GeneralPurpose2d
                     @Walk.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnWalk;
                     @Walk.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnWalk;
                     @Walk.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnWalk;
+                    @Fly.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFly;
+                    @Fly.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFly;
+                    @Fly.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFly;
                 }
                 m_Wrapper.m_CharacterActionsCallbackInterface = instance;
                 if (instance != null)
@@ -264,6 +290,9 @@ namespace GeneralPurpose2d
                     @Walk.started += instance.OnWalk;
                     @Walk.performed += instance.OnWalk;
                     @Walk.canceled += instance.OnWalk;
+                    @Fly.started += instance.OnFly;
+                    @Fly.performed += instance.OnFly;
+                    @Fly.canceled += instance.OnFly;
                 }
             }
         }
@@ -314,6 +343,7 @@ namespace GeneralPurpose2d
         {
             void OnMove(InputAction.CallbackContext context);
             void OnWalk(InputAction.CallbackContext context);
+            void OnFly(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

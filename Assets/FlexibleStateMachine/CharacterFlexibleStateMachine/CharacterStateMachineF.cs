@@ -23,15 +23,18 @@ namespace GeneralPurpose2d
             StateF runState = new RunStateF(_character, _character.Stats.RunSpeed);
             StateF walkState = new WalkStateF(_character, _character.Stats.WalkSpeed);
 
-            TransitionF toRunTransition = new ToRunMoveInput();
-            TransitionF toWalkTransition = new ToWalkMoveInput();
-            TransitionF stopMovingTransition = new CharacterIsNotMoving(_charRB);
+            TransitionF idleToRun = new ToRunMoveInput();
+            TransitionF walkToRun = new ToRunMoveInput();
+            TransitionF idleToWalk = new ToWalkMoveInput();
+            TransitionF runToWalk = new ToWalkMoveInput();
+            TransitionF runToIdle = new CharacterIsNotMoving(_charRB);
+            TransitionF walkToIdle = new CharacterIsNotMoving(_charRB);
 
             Init(idleState, new()
             {
-                { idleState, new(){ { toRunTransition, runState }, {toWalkTransition, walkState } } },
-                { runState, new(){ {stopMovingTransition, idleState }, { toWalkTransition, walkState} } },
-                { walkState, new(){ {stopMovingTransition, idleState }, { toRunTransition, runState} } },
+                { idleState, new(){ { idleToRun, runState }, { idleToWalk, walkState } } },
+                { runState, new(){ { runToIdle, idleState }, { runToWalk, walkState} } },
+                { walkState, new(){ { walkToIdle, idleState }, { walkToRun, runState} } },
             });
         }
 

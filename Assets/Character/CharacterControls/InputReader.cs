@@ -10,6 +10,7 @@ namespace GeneralPurpose2d
 
         public static event Action<Vector2> OnMove;
         public static event Action<bool> OnWalk;
+        public static event Action OnFly;
 
         [RuntimeInitializeOnLoadMethod]
         private static void PrepareInputReading()
@@ -30,6 +31,8 @@ namespace GeneralPurpose2d
 
             _playerInput.Character.Walk.performed += ctx => OnWalk?.Invoke(true);
             _playerInput.Character.Walk.canceled += ctx => OnWalk?.Invoke(false);
+
+            _playerInput.Character.Fly.performed += ctx => OnFly?.Invoke();
 
         }
 
