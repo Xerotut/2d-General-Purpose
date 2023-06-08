@@ -13,9 +13,7 @@ namespace GeneralPurpose2d
         }
 
         private Vector2 _moveInput;
-        public override bool CheckCondition() => _moveInput != Vector2.zero;
-            
-        
-        
+        protected override bool CheckConditionUpdate() => _moveInput != Vector2.zero;
+
     }
 }

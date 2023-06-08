@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace GeneralPurpose2d
@@ -12,9 +13,14 @@ namespace GeneralPurpose2d
             InputReader.OnMove += input => _moveInput = input;
         }
 
-        private Rigidbody2D _charRB;
+        private readonly Rigidbody2D _charRB;
         private Vector2 _moveInput;
 
-        public override bool CheckCondition() => _charRB.velocity == Vector2.zero && _moveInput==Vector2.zero;
+        protected override bool CheckConditionUpdate() => _moveInput == Vector2.zero;
+        protected override bool CheckConditionFixedUpdate() => _charRB.velocity==Vector2.zero;
+
+        
+
+       
     }
 }

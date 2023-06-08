@@ -9,14 +9,17 @@ namespace GeneralPurpose2d
     {
         public event Action Callback;
 
-        public abstract bool CheckCondition();
+
+        protected virtual bool CheckConditionUpdate() => true;
+        protected virtual bool CheckConditionFixedUpdate() => true;
+        private bool _physicsCheck;
 
         public virtual void Enter() { }
         public virtual void Exit() { }
 
-        public void UpdateTransition()
+        public virtual void UpdateTransition()
         {
-            if (!CheckCondition()) return;
+            if (!(CheckConditionUpdate() && _physicsCheck)) return;
 
             if (Callback != null)
             {
@@ -26,6 +29,10 @@ namespace GeneralPurpose2d
             {
                 Enter();
             }
+        }
+        public virtual void UpdateTransitionPhysics()
+        {
+            _physicsCheck = CheckConditionFixedUpdate();
         }
 
      

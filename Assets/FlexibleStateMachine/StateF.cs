@@ -39,7 +39,10 @@ namespace GeneralPurpose2d
         }
         public virtual void UpdateStatePhysics()
         {
-            
+            for (int i = 0; i < _transitions.Count; i++)
+            {
+                _transitions[i].UpdateTransitionPhysics();
+            }
         }
     }
 }

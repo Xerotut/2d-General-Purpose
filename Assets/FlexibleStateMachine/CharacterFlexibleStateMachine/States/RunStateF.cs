@@ -9,7 +9,7 @@ namespace GeneralPurpose2d
     {
 
         private event Action<float> HandleMoveInput;
-        private float _speed;
+        private readonly float _speed;
 
         public RunStateF(Character character, float moveSpeed) 
         {
@@ -20,6 +20,7 @@ namespace GeneralPurpose2d
         public override void UpdateStatePhysics()
         {
             HandleMoveInput.Invoke(_speed);
+            base.UpdateStatePhysics();
         }
     }
 }
