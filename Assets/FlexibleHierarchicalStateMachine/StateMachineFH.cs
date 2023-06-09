@@ -11,7 +11,7 @@ namespace GeneralPurpose2d
         private StateFH _currentState;
 
 
-        protected void Init(StateFH initialState, Dictionary<StateFH, Dictionary<TransitionFH, StateFH>> states)
+        protected void Init(StateFH initialState, Dictionary<StateFH, Dictionary<TransitionF, StateFH>> states, Dictionary<StateFH, Dictionary<TransitionF, StateFH>> subStates)
         {
             foreach (var state in states)
             {
@@ -21,7 +21,15 @@ namespace GeneralPurpose2d
                     state.Key.AddTransition(transition.Key);
                 }
             }
-           
+            foreach (var state in subStates)
+            {
+                foreach (var transition in state.Value)
+                {
+                    transition.Key.Callback += () => ChangeState(null, state.Key, transition.Value);
+                    state.Key.AddTransition(transition.Key);
+                }
+            }
+
             ChangeState(null, null, initialState);
 
         }

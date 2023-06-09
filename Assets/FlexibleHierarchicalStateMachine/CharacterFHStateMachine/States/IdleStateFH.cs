@@ -4,18 +4,8 @@ using UnityEngine;
 
 namespace GeneralPurpose2d
 {
-    public class IdleStateFH : MonoBehaviour
+    public class IdleStateFH : StateFH
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+       
     }
 }

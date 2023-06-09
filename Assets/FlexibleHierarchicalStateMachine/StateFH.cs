@@ -12,15 +12,15 @@ namespace GeneralPurpose2d
         protected StateFH _subState;
 
 
-        private List<TransitionFH> _transitions = new();
+        private List<TransitionF> _transitions = new();
 
-        private List<TransitionFH> _subStateTransitions = new();
+        private List<TransitionF> _subStateTransitions = new();
 
-        public void AddTransition(TransitionFH transition)
+        public void AddTransition(TransitionF transition)
         {
             _transitions.Add(transition);
         }
-        public void AddSubstateTransition(TransitionFH transition)
+        public void AddSubstateTransition(TransitionF transition)
         {
             _subStateTransitions.Add(transition);
         }
@@ -32,7 +32,7 @@ namespace GeneralPurpose2d
                 _transitions[i].Enter();
             }
             InitSubState();
-            _subState.Enter();  
+            _subState?.Enter();  
         }
 
         public virtual void Exit()

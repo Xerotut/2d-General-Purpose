@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GeneralPurpose2d
 {
-    public class FlyInput : TransitionFH
+    public class FlyInput : TransitionF
     {
         public FlyInput() 
         {
