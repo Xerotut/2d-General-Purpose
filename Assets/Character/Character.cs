@@ -10,5 +10,13 @@ namespace GeneralPurpose2d
         public Stats Stats { get => _stats; }
 
         public Action<float> MoveEvent;
+
+
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            
+        }
+
     }
 }

@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<ItemCollection>
+	<Items>
+		<Item>
+			<ID>0</ID>
+			<Name>Sword</Name>
+		</Item>
+		<Item>
+			<ID>1</ID>
+			<Name>Shield</Name>
+		</Item>
+		<Item>
+			<ID>2</ID>
+			<Name>Apple</Name>
+		</Item>
+	</Items>
+</ItemCollection>
