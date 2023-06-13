@@ -7,7 +7,7 @@ namespace GeneralPurpose2d
 {
     public abstract class TransitionF
     {
-        public event Action Callback;
+        public Action Callback;
 
 
         protected virtual bool CheckConditionUpdate() => true;
